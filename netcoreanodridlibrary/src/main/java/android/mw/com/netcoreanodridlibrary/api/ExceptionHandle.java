@@ -1,11 +1,14 @@
 package android.mw.com.netcoreanodridlibrary.api;
 
+import android.mw.com.netcoreanodridlibrary.bean.CodeAndMessageDTO;
 import android.net.ParseException;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.net.ConnectException;
 
 import okhttp3.ResponseBody;
@@ -85,19 +88,19 @@ public class ExceptionHandle {
                 case BAD_GATEWAY:
                 case SERVICE_UNAVAILABLE:
                 case FAIL_QUEST:
-                    /*body = ((HttpException) e).response().errorBody();
+                    body = ((HttpException) e).response().errorBody();
                     try {
                         String message = body.string();
                         Gson gson = new Gson();
-                        GlobalExceptionDTO globalExceptionDTO = gson.fromJson(message, GlobalExceptionDTO.class);
-                        if(globalExceptionDTO.getErrMeg()!=null){
-                            ex.message=globalExceptionDTO.getErrMeg();
+                        CodeAndMessageDTO globalExceptionDTO = gson.fromJson(message, CodeAndMessageDTO.class);
+                        if(globalExceptionDTO.getMessage()!=null){
+                            ex.message=globalExceptionDTO.getMessage();
                         }else {
                             ex.message = globalExceptionDTO.getMessage();
                         }
                     } catch (IOException e1) {
                         e1.printStackTrace();
-                    }*/
+                    }
                     break;
                 default:
                     ex.message = "网络错误";
