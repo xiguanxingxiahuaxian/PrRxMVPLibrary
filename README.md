@@ -10,5 +10,5 @@ allprojects {
 	}
 ## 第二步  
   dependencies {
-	        implementation 'com.github.xiguanxingxiahuaxian:PrRxMVPLibrary:v1.0.3'
+	        implementation 'com.github.xiguanxingxiahuaxian:PrRxMVPLibrary:v1.0.7'
 	}
