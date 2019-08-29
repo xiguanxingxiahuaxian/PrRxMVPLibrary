@@ -54,6 +54,7 @@ public class ExceptionHandle {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }*/
+                    ex.message = "invalid_token";
                     break;
                 case FORBIDDEN:
                     ex.message = "服务器已经理解请求，但是拒绝执行它";
