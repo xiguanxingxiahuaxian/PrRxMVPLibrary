@@ -94,10 +94,14 @@ public class ExceptionHandle {
                         String message = body.string();
                         Gson gson = new Gson();
                         CodeAndMessageDTO globalExceptionDTO = gson.fromJson(message, CodeAndMessageDTO.class);
-                        if(globalExceptionDTO.getMessage()!=null){
-                            ex.message=globalExceptionDTO.getMessage();
-                        }else {
-                            ex.message = globalExceptionDTO.getMessage();
+                        if(globalExceptionDTO.getErrMsg()==null) {
+                            if (globalExceptionDTO.getMessage() != null) {
+                                ex.message = globalExceptionDTO.getMessage();
+                            } else {
+                                ex.message = globalExceptionDTO.getMessage();
+                            }
+                        }else{
+                            ex.message=globalExceptionDTO.getErrMsg();
                         }
                     } catch (IOException e1) {
                         e1.printStackTrace();
