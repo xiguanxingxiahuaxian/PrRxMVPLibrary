@@ -1,5 +1,6 @@
 package android.mw.com.netcoreanodridlibrary.base;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -14,21 +15,27 @@ import java.lang.reflect.Proxy;
 public class BasePresenter<V extends BaseView> {
 
     public V view;
+    private WeakReference<V> mViewReference;
 
-    public void addView(final V v){
-        this.view= (V) Proxy.newProxyInstance(v.getClass().getClassLoader(), v.getClass().getInterfaces(), new InvocationHandler() {
+    public void addView(V vi){
+        // this.view=v;
+
+        this.mViewReference = new WeakReference<V>(vi) ;
+        // 用代理对象 动态代理
+        view = (V) Proxy.newProxyInstance(vi.getClass().getClassLoader(), vi.getClass().getInterfaces(), new InvocationHandler() {
             @Override
-            public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
-                if(view!=null){
-                    method.invoke(v,objects);
-                };
-                return null;
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                // 动态代理每次都会执行这个方法，调用的是被代理的对象（就是mView）
+                if (mViewReference == null || mViewReference.get() == null) {
+                    return null ;
+                }else{
+                    return method.invoke(mViewReference.get(), args);
+                }
             }
         });
     }
     public void detattch(){
-        if(view!=null){
-            view=null;
-        }
+        this.mViewReference.clear();
+        this.mViewReference = null ;
     }
 }
