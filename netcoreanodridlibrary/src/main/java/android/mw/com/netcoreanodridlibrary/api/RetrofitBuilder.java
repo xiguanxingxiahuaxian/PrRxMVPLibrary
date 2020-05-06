@@ -3,6 +3,7 @@ package android.mw.com.netcoreanodridlibrary.api;
 import android.app.Application;
 import android.mw.com.netcoreanodridlibrary.base.BaseApp;
 import android.mw.com.netcoreanodridlibrary.utils.CatcheInterceptor;
+import android.mw.com.netcoreanodridlibrary.utils.sslsocketclient;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -98,10 +99,12 @@ public class RetrofitBuilder {
             });
             loggingInterceptor.setLevel(level);
             if (application == null) {
-                return new OkHttpClient.Builder().cache(cache()).addNetworkInterceptor(new CatcheInterceptor()).addInterceptor(loggingInterceptor)
+                return new OkHttpClient.Builder().cache(cache()).addNetworkInterceptor(new CatcheInterceptor())
+                        .sslSocketFactory(sslsocketclient.getSSLSocketFactory()).hostnameVerifier(sslsocketclient.getHostnameVerifier()).addInterceptor(loggingInterceptor)
                         .build();
             } else {
-                return new OkHttpClient.Builder().addNetworkInterceptor(new CatcheInterceptor()).addInterceptor(loggingInterceptor)
+                return new OkHttpClient.Builder().addNetworkInterceptor(new CatcheInterceptor()).
+                        sslSocketFactory(sslsocketclient.getSSLSocketFactory()).hostnameVerifier(sslsocketclient.getHostnameVerifier()).addInterceptor(loggingInterceptor)
                         .build();
             }
         }
