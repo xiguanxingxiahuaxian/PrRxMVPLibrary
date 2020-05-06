@@ -2,6 +2,7 @@ package android.mw.com.netcoreanodridlibrary.api;
 
 import android.mw.com.netcoreanodridlibrary.base.BaseApp;
 import android.mw.com.netcoreanodridlibrary.utils.CatcheInterceptor;
+import android.mw.com.netcoreanodridlibrary.utils.sslsocketclient;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -65,7 +66,7 @@ public class RetrofitManager {
     });
     loggingInterceptor.setLevel(level);
     return  new OkHttpClient.Builder().cache(cache()).addNetworkInterceptor(new CatcheInterceptor()).addInterceptor(loggingInterceptor)
-            .build();
+            .sslSocketFactory(sslsocketclient.getSSLSocketFactory()).build();
   }
 
   public Cache cache(){
