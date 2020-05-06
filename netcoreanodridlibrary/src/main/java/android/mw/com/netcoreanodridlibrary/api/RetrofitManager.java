@@ -66,7 +66,7 @@ public class RetrofitManager {
     });
     loggingInterceptor.setLevel(level);
     return  new OkHttpClient.Builder().cache(cache()).addNetworkInterceptor(new CatcheInterceptor()).addInterceptor(loggingInterceptor)
-            .sslSocketFactory(sslsocketclient.getSSLSocketFactory()).build();
+            .sslSocketFactory(sslsocketclient.getSSLSocketFactory()).hostnameVerifier(sslsocketclient.getHostnameVerifier()).build();
   }
 
   public Cache cache(){
